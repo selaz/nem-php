@@ -313,7 +313,7 @@ class Model
      */
     public function setAttributes(array $attributes)
     {
-        $flattened = array_dot($attributes);
+        $flattened = Arr::dot($attributes);
 
         $fields = $this->getFields();
         if (empty($fields))
@@ -328,8 +328,8 @@ class Model
             // read full path to attribute (get dot notation if available).
             $attribFullPath = isset($this->fillable[$field]) ? $this->fillable[$field] : $field;
 
-            $hasByPath  = array_has($flattened, $attribFullPath);
-            $hasByAlias = array_has($attributes, $field);
+            $hasByPath  = Arr::has($flattened, $attribFullPath);
+            $hasByAlias = Arr::has($attributes, $field);
 
             if (! $hasByPath && ! $hasByAlias) {
                 // try deep find and continue
@@ -348,8 +348,8 @@ class Model
             }
 
             // use attribute path or alias
-            $attribValue = $hasByPath ? array_get($flattened, $attribFullPath)
-                                      : array_get($attributes, $field);
+            $attribValue = $hasByPath ? Arr::get($flattened, $attribFullPath)
+                                      : Arr::get($attributes, $field);
 
             $this->setAttribute($field, $attribValue);
         endforeach ;
