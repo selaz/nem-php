@@ -26,7 +26,7 @@
         "mdanter/ecc": "*",
         "paragonie/sodium_compat": "^1.4",
         "christian-riesen/base32": "^1.3",
-        "kornrunner/keccak": "dev-master"
+        "kornrunner/keccak": "dev-main"
     },
     "require-dev": {
         "mockery/mockery": "0.9.9",
