@@ -351,7 +351,7 @@ class Transaction
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
-    public function serialize($parameters = null)
+    public function serialize($parameters = null): string
     {
         $nisData = $this->toDTO("transaction");
 
