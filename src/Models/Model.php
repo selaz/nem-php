@@ -262,9 +262,9 @@ class Model
      *
      * @see \NEM\Contracts\Serializable
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
-     * @return  array   Returns a byte-array with values in UInt8 representation.
+     * @return  string   Returns a byte-array with values in UInt8 representation.
      */
-    public function serialize($parameters = null)
+    public function serialize($parameters = null): string
     {
         $json = json_encode($this->toDTO($parameters));
         return $this->getSerializer()->serializeString($json);
