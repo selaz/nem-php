@@ -380,7 +380,9 @@ class Transaction
             $uint8_deadline);
 
         // done with `base transaction data` serialization.
-        return ($this->serialized = $output);
+        $return = ($this->serialized = $output);
+
+        return implode('',$return);
     }
 
     /**
