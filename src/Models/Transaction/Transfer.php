@@ -122,6 +122,8 @@ class Transfer
             $uint8_msg);
 
         // specialized data is concatenated to `base transaction data`.
-        return ($this->serialized = array_merge($baseTx, $output));
+        $return = ($this->serialized = array_merge($baseTx, $output));
+
+        return implode('',$return);
     }
 }
