@@ -55,7 +55,6 @@ class GuzzleRequestHandler
      * @param  Client  $client  [description]
      * @param  Request $request [description]
      * @param  array   $options [description]
-     * @return [type]           [description]
      */
     protected function promiseResponse(Client $client, Request $request, array $options = [])
     {
@@ -120,12 +119,10 @@ class GuzzleRequestHandler
      *   the Request encounters an error
      *
      * @see  \NEM\Contracts\RequestHandler
-     * @param  string $bodyJSON
      * @param  array  $options      can contain "headers" array, "onSuccess" callable,
      *                              "onError" callable and any other GuzzleHTTP request
      *                              options.
      * @param  boolean  $usePromises
-     * @return [type]
      */
     public function status(array $options = [], $usePromises = false)
     {
@@ -173,7 +170,6 @@ class GuzzleRequestHandler
      *                              "onError" callable and any other GuzzleHTTP request
      *                              options.
      * @param  boolean  $usePromises
-     * @return [type]
      */
     public function get($uri, $bodyJSON = null, array $options = [], $usePromises = false)
     {
@@ -214,8 +210,7 @@ class GuzzleRequestHandler
      * @param  string $uri
      * @param  string $bodyJSON
      * @param  array  $options
-     * @param  boolean  $synchronous
-     * @return [type]
+     * @param  boolean  $usePromises
      */
     public function post($uri, $bodyJSON, array $options = [], $usePromises = false)
     {
@@ -238,11 +233,12 @@ class GuzzleRequestHandler
         ];
 
         $client  = new Client(["base_uri" => $this->getBaseUrl()]);
+        $request = new Request('POST', $uri, $options);
 
         if (! $usePromises) {
             // return the response object when the request is completed.
             // this behaviour handles the request synchronously.
-            return $client->request('POST', $uri, $options);
+            return $client->send($request);
             //XXX return $response->getBody()->getContents();
         }
 

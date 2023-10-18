@@ -27,6 +27,7 @@ use NEM\Errors\NISInvalidSignatureContent;
 use \ParagonIE_Sodium_Compat;
 use \ParagonIE_Sodium_Core_Ed25519 as Ed25519;
 USE \SodiumException;
+use RuntimeException;
 
 /**
  * This is the Serializer class
@@ -88,7 +89,7 @@ class Serializer
     /**
      * Serialize any input for the NEM network.
      * 
-     * @param   array|string|integer|\NEM\Core\Serializer   $data
+     * @param   null|array|string|integer|\NEM\Core\Serializer   $data
      * @return  array       Returns a byte-array with values in UInt8 representation.
      * @throws  RuntimeException    On unrecognized `data` argument.
      */
@@ -182,7 +183,7 @@ class Serializer
      * on 8-bits.
      * 
      * @internal This method is used internally
-     * @param   string  $str
+     * @param   array  $uint8Str
      * @return  array       Returns a byte-array with values in UInt8 representation.
      */
     public function serializeUInt8(array $uint8Str = null)
@@ -246,9 +247,6 @@ class Serializer
      * The passed array must contain UInt8 representation
      * of bytes (see serializeX methods).
      * 
-     * @param   array   $uint8_1
-     * @param   array   $uint8_2
-     * @param   array   $uint8_X
      * @return  array
      */
     public function aggregate(/* [array $uint8_1, array $uint8_2, ...] */)

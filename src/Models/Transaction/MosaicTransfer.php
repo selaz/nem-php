@@ -29,7 +29,7 @@ use NEM\Models\MosaicDefinitions;
 use NEM\Models\Fee;
 use NEM\Models\Transaction;
 use NEM\Infrastructure\Network;
-
+use InvalidArgumentException;
 /**
  * This is the MosaicTransfer class
  *
@@ -51,6 +51,8 @@ class MosaicTransfer
         "mosaics" => "transaction.mosaics",
     ];
 
+    protected $mosaics = null;
+
     /**
      * Overload of the \NEM\Core\Model::serialize() method to provide
      * with a specialization for *Transfer* serialization.
@@ -60,6 +62,7 @@ class MosaicTransfer
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         // @see NEM\Models\Transaction\Transfer::serialize()
@@ -119,7 +122,7 @@ class MosaicTransfer
      * The extendFee() method must be overloaded by any Transaction Type
      * which needs to extend the base FEE to a custom FEE.
      *
-     * @return array
+     * @return float
      */
     public function extendFee()
     {

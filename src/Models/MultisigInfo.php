@@ -51,6 +51,9 @@ class MultisigInfo
         "minCosignatories" => "int",
     ];
 
+    protected $cosignatoriesCount = null;
+    protected $minCosignatories = null;
+
     /**
      * MultisigModification DTO automatically builds a *NIS compliant*
      * [MultisigCosignatoryModification](https://bob.nem.ninja/docs/#multisigCosignatoryModification)

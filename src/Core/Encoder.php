@@ -43,7 +43,7 @@ class Encoder
      */
     public function hex2bin($hex)
     {
-        $binLen = ceil(mb_strlen($hex) / 2);
+        $binLen = intval(ceil(mb_strlen($hex) / 2));
 
         // size validation while creating
         $buffer = Buffer::fromHex($hex, $binLen);
@@ -54,7 +54,7 @@ class Encoder
      * Encode a Binary string to corresponding Hexadecimal representation
      * using the Buffer class as a backbone.
      *
-     * @param   string  $hex
+     * @param   string  $bin
      * @return  string
      */
     public function bin2hex($bin)
@@ -122,7 +122,7 @@ class Encoder
      */
     public function ua2hex(array $uint8)
     {
-        $uint8 = $uint8 ?: $this->toUInt8();
+        // $uint8 = $uint8 ?: $this->toUInt8();
         $hex = "";
         $enc = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
         for ($i = 0, $bytes = count($uint8); $i < $bytes; $i++) {

@@ -3,7 +3,7 @@
 
 namespace NEM\Infrastructure;
 
-use NEM\NemSDK;
+use NEM\SDK as NemSDK;
 
 /**
  * This is the Node Infrastructure service

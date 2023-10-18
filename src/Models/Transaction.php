@@ -69,6 +69,8 @@ class Transaction
     const VERSION_1_MIJIN = 0x60000000 | 1;
     const VERSION_2_MIJIN = 0x60000000 | 2;
 
+    public $hash = null;
+
     /**
      * List of valid Transaction Types on the NEM network.
      * 
@@ -165,7 +167,7 @@ class Transaction
             $type = $data["transaction"]["type"];
         }
         elseif (! $data || empty($data["type"])) {
-            return new static($data);
+            return new self($data);
         }
         else {
             $type = $data["type"];
@@ -220,7 +222,7 @@ class Transaction
      * For example MosaicTransfer transactions define a specific FEE or 
      * ImportanceTransfer, etc.
      *
-     * @return array
+     * @return int
      */
     public function extendFee()
     {
@@ -348,9 +350,10 @@ class Transaction
      * with a specialization for *Transaction* serialization.
      *
      * @see \NEM\Contracts\Serializable
-     * @param   null|string $parameters    non-null will return only the named sub-dtos.
+     * @param   null|mixed $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $nisData = $this->toDTO("transaction");
@@ -386,7 +389,7 @@ class Transaction
     /**
      * Returns timestamp of the transaction.
      *
-     * @return int
+     * @return TimeWindow
      */
      public function timeStamp($timestamp = null) 
      {
@@ -401,7 +404,7 @@ class Transaction
     /**
      * Returns deadline associated with the transaction
      *
-     * @return int
+     * @return TimeWindow
      */
     public function deadline($deadline = null) 
     {

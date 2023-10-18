@@ -40,7 +40,6 @@ abstract class AbstractRequestHandler
      * added in case they are not present.
      *
      * @param  array  $headers [description]
-     * @return [type]          [description]
      */
     protected function normalizeHeaders(array $headers)
     {
@@ -62,11 +61,8 @@ abstract class AbstractRequestHandler
      * client.
      *
      * @see  \NEM\Contracts\RequestHandler
-     * @param  string $uri
-     * @param  string $bodyJSON
      * @param  array  $options
      * @param  boolean  $usePromises
-     * @return [type]          [description]
      */
     abstract public function status(array $options = [], $usePromises = false);
 
@@ -79,7 +75,6 @@ abstract class AbstractRequestHandler
      * @param  string $bodyJSON
      * @param  array  $options
      * @param  boolean  $usePromises
-     * @return [type]          [description]
      */
     abstract public function get($uri, $bodyJSON, array $options = [], $usePromises = false);
 
@@ -92,7 +87,6 @@ abstract class AbstractRequestHandler
      * @param  string $bodyJSON
      * @param  array  $options
      * @param  boolean  $usePromises
-     * @return [type]          [description]
      */
     abstract public function post($uri, $bodyJSON, array $options = [], $usePromises = false);
 }

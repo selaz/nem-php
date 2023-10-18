@@ -21,7 +21,7 @@ namespace NEM\Models;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Arr as ArrayHelper;
-use NEM\Infrastructure\ServiceInterface;
+use NEM\Contracts\Service as ServiceInterface;
 use NEM\Contracts\DataTransferObject;
 use NEM\Contracts\Serializable;
 
@@ -103,12 +103,12 @@ class ModelCollection
      * This method can be used to return the *full list* of transactions
      * rather than just a *pageSize* number of transactions.
      *
-     * @param   \NEM\Infrastructure\ServiceInterface    $service    The NEM Service helper.
+     * @param   ServiceInterface    $service    The NEM Service helper.
      * @param   string                                  $method     The Service method name to replicate.
      * @param   array                                   $arguments  The (optional) arguments list for the forwarded method call.
      * @param   string                                  $field      The (optional) Array Dot Notation for retrieving the *counting* field.
      * @param   integer                                 $pageSize   The (optional) number of elements which NIS will return with the given Service method.
-     * @return  \NEM\Models\ModelCollection
+     * @return  array
      * @throws  \BadMethodCallException         On invalid service method.
      */
     public function paginate(ServiceInterface $service, $method, array $arguments = [], $field = "id", $pageSize = 25)

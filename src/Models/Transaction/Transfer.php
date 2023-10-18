@@ -69,7 +69,7 @@ class Transfer
      * The extendFee() method must be overloaded by any Transaction Type
      * which needs to extend the base FEE to a custom FEE.
      *
-     * @return array
+     * @return int|float
      */
     public function extendFee()
     {
@@ -86,6 +86,7 @@ class Transfer
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $baseTx  = parent::serialize($parameters);

@@ -29,10 +29,10 @@ class Mosaic
     /**
      * XXX
      *
-     * @param namespace
-     * @param id         - The topmost mosaic definition database id up to which root mosaic definitions are returned.
+     * @param $namespace
+     * @param $id         - The topmost mosaic definition database id up to which root mosaic definitions are returned.
      *                   The parameter is optional. If not supplied the most recent mosaic definitiona are returned.
-     * @param pageSize   - The number of mosaic definition objects to be returned for each request. The parameter is
+     * @param $pageSize   - The number of mosaic definition objects to be returned for each request. The parameter is
      *                   optional. The default value is 25, the minimum value is 5 and hte maximum value is 100.
      */
     public function getMosaicDefinitionsPage($namespace, $id = null, $pageSize = null)
@@ -53,7 +53,8 @@ class Mosaic
 	 * Gets the mosaic definitions for a given namespace. The request supports paging.
 	 *
 	 * @returns Observable<MosaicDefinition[]>
-	 /
+	 */
+	/*
 	private function getMosaicDefinitionsPage( $namespace, $id = null, $pageSize = null ) {
 		$query = 'namespace=' . $namespace;
 		if ( $id !== null ) {

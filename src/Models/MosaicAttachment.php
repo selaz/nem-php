@@ -59,6 +59,8 @@ class MosaicAttachment
         "quantity" => "int",
     ];
 
+    public $quantity = null;
+
     /**
      * Address DTO automatically cleans address representation.
      *
@@ -80,6 +82,7 @@ class MosaicAttachment
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $nisData = $this->toDTO();
@@ -96,7 +99,7 @@ class MosaicAttachment
      *
      * This will return a NIS compliant [MosaicId](https://bob.nem.ninja/docs/#mosaicId) object. 
      *
-     * @param   array   $mosaidId       Array should contain offsets `namespaceId` and `name`.
+     * @param   array   $mosaicId       Array should contain offsets `namespaceId` and `name`.
      * @return  \NEM\Models\Mosaic
      */
     public function mosaicId(array $mosaicId = null)

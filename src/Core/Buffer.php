@@ -90,7 +90,7 @@ class Buffer
      * When a `byteSize` is provided, the `byteString` will be evaluated
      * to make sure we don't run into size overflow errors.
      *
-     * @param   string               $byteString        Content of the Buffer
+     * @param   ?string               $byteString        Content of the Buffer
      * @param   null|integer         $byteSize          Size of the Content (Optional)
      * @throws  \InvalidArgumentException    On Invalid `byteSize` and `byteString` pair.
      */
@@ -327,7 +327,7 @@ class Buffer
      * This uses the GNU Multiple Precision PHP wrapper to
      * create a GMP number with the given base. (here 16 - hexadecimal)
      *
-     * @return \GMP
+     * @return \GMP|string
      */
     public function getGmp($base = null)
     {
@@ -478,7 +478,7 @@ class Buffer
         }
 
         // add padding when needed
-        if ($padding = true && $size) {
+        if ($padding == true && $size) {
             $buf = new Buffer($bin, $size, $direction);
             $bin = $buf->getBinary();
         }
@@ -553,7 +553,7 @@ class Buffer
      *
      * Concatenate buffers
      *
-     * @param   \NEM\Core\Buffer    $buffer1
+     * @param   \NEM\Core\Buffer    $buffer
      * @return  \NEM\Core\Buffer
      */
     public function concat(Buffer $buffer)
@@ -591,10 +591,6 @@ class Buffer
                     return $value;
                 }
 
-                if ($value instanceof Serializable) {
-                    return $value->getBuffer();
-                }
-
                 throw new RuntimeException('Requested to sort unknown buffer type');
             };
         }
@@ -620,7 +616,7 @@ class Buffer
      * - sha1 (20 bytes)
      *
      * @param   string  $algorithm      Hash algorithm (Example: sha512)
-     * @return  \NEM\Core\Buffer
+     * @return  string
      */
     public function hash($algorithm = "sha512")
     {
@@ -639,7 +635,7 @@ class Buffer
     /**
      * Convert 64 Bytes Keccak SHA3-512 Hashes into a Secret Key.
      * 
-     * @param   string  $unsafeSecret   A 64 bytes (512 bits) Keccak hash produced from a KeyPair's Secret Key.
+     * @param   string|Buffer  $unsafeSecret   A 64 bytes (512 bits) Keccak hash produced from a KeyPair's Secret Key.
      * @return  string                  Byte-level representation of the Secret Key.
      */
     static public function clampBits($unsafeSecret, $bytes = 64)

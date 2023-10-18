@@ -60,6 +60,8 @@ class Address
         "privateKey"
     ];
 
+    public $address = null;
+
     /**
      * Generate an address corresponding to a `publicKey`
      * public key.

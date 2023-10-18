@@ -117,8 +117,7 @@ class Transaction
         }
 
         // now we can serialize and sign
-        $serialized = $transaction->serialize();
-        $signature  = $this->signTransaction($transaction, $kp, $serialized);
+        $signature  = $this->signTransaction($transaction, $kp);
         $broadcast  = [];
 
         if ($signature) {
@@ -127,7 +126,7 @@ class Transaction
             // recommended signed transaction broadcast method.
             // this will use the /transaction/announce endpoint.
             $broadcast = [
-                "data" => Buffer::fromUInt8($serialized)->getHex(),
+                "data" => Buffer::fromUInt8($transaction->serialize())->getHex(),
                 "signature" => $signature->getHex(),
             ];
         }

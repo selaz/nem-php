@@ -61,11 +61,13 @@ class Signature
      */
     protected $algorithm;
 
+    protected Buffer $data;
+
     /**
      * This method creates a Signature of said `data` with the
      * given `keyPair` KeyPair object.
      *
-     * @param   \NEM\Core\KeyPair          $keyPair      The KeyPair object with which you want to sign `data`.
+     * @param   \NEM\Core\KeyPair          $kp      The KeyPair object with which you want to sign `data`.
      * @param   string|\NEM\Core\Buffer    $data         The data that needs to be signed.
      * @param   null|string                $algorithm    The hash algorithm that you wish to use for signature creation.
      * @return  \NEM\Core\Signature
@@ -73,14 +75,14 @@ class Signature
      */
     static public function create(KeyPair $kp, $data, $algorithm = 'keccak-512')
     {
-        $sig = new static($privateKey, $publicKey, $algorithm);
+        $sig = new self($kp, $data, $algorithm);
         return $sig;
     }
 
     /**
      * Signature object constructor.
      *
-     * @param   \NEM\Core\KeyPair          $keyPair      The KeyPair object with which you want to sign `data`.
+     * @param   \NEM\Core\KeyPair          $kp      The KeyPair object with which you want to sign `data`.
      * @param   string|\NEM\Core\Buffer    $data         The data that needs to be signed.
      * @param   null|string                $algorithm    The hash algorithm that you wish to use for signature creation.
      * @return  void

@@ -142,7 +142,7 @@ class Fee
      * `transaction` object.
      *
      * @param   \NEM\Models\Transaction     $transaction
-     * @return  \NEM\Models\Fee
+     * @return  float
      */
     static public function calculateForTransaction(Transaction $transaction)
     {
@@ -172,7 +172,7 @@ class Fee
      *
      * @internal
      * @param   Message     $message
-     * @return  \NEM\Models\Fee
+     * @return  float
      */
     static public function calculateForMessage(Message $message)
     {
@@ -201,7 +201,7 @@ class Fee
      * @param   \NEM\Models\MosaicDefinitions   $definitions    Collection of MosaicDefinition objects.
      * @param   \NEM\Models\MosaicAttachments   $attachments    Collection of MosaicAttachment objects.
      * @param   integer                         $multiplier
-     * @return  \NEM\Models\Fee
+     * @return  float
      * @throws  RuntimeException                                On missing MosaicDefinition in `definitions` argument.
      */
     static public function calculateForMosaics(MosaicDefinitions $definitions,
@@ -268,8 +268,8 @@ class Fee
      * This method is used internally to calculate a transaction's base fee.
      *
      * @internal
-     * @param   string     $message
-     * @return  \NEM\Models\Fee
+     * @param   float     $amountXEM
+     * @return  float
      */
     static public function calculateForXEM($amountXEM = 1)
     {

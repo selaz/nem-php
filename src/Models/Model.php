@@ -125,6 +125,9 @@ class Model
      */
     protected $fillable = [];
 
+        protected $cosignatoryAccount = null;
+    protected $modificationType = null;
+
     /**
      * The model instance's attribute values.
      *
@@ -185,7 +188,7 @@ class Model
     /**
      * Construct a Model instance with attributes data.
      *
-     * @param   array   $attributes         Associative array where keys are attribute names and values are attribute values
+     * @param   array|DataTransferObject   $attributes         Associative array where keys are attribute names and values are attribute values
      * @return  void
      */
     public function __construct($attributes = [])
@@ -264,6 +267,7 @@ class Model
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $json = json_encode($this->toDTO($parameters));
@@ -274,7 +278,7 @@ class Model
      * Setter for the `fillable` property.
      *
      * @param   array   $fieldNames     An array of field names
-     * @return  \NEM\Models\ModelInterface
+     * @return  static
      */
     public function setFields(array $fieldNames)
     {
@@ -289,8 +293,7 @@ class Model
      * This method will merge the `fillable` property and the `appends`
      * properties into one array of field names.
      *
-     * @param   array   $fieldNames     An array of field names
-     * @return  \NEM\Models\ModelInterface
+     * @return  array
      */
     public function getFields()
     {
@@ -313,7 +316,7 @@ class Model
      */
     public function setAttributes(array $attributes)
     {
-        $flattened = array_dot($attributes);
+        $flattened = Arr::dot($attributes);
 
         $fields = $this->getFields();
         if (empty($fields))
@@ -328,8 +331,8 @@ class Model
             // read full path to attribute (get dot notation if available).
             $attribFullPath = isset($this->fillable[$field]) ? $this->fillable[$field] : $field;
 
-            $hasByPath  = array_has($flattened, $attribFullPath);
-            $hasByAlias = array_has($attributes, $field);
+            $hasByPath  = Arr::has($flattened, $attribFullPath);
+            $hasByAlias = Arr::has($attributes, $field);
 
             if (! $hasByPath && ! $hasByAlias) {
                 // try deep find and continue
@@ -348,8 +351,8 @@ class Model
             }
 
             // use attribute path or alias
-            $attribValue = $hasByPath ? array_get($flattened, $attribFullPath)
-                                      : array_get($attributes, $field);
+            $attribValue = $hasByPath ? Arr::get($flattened, $attribFullPath)
+                                      : Arr::get($attributes, $field);
 
             $this->setAttribute($field, $attribValue);
         endforeach ;
@@ -380,7 +383,7 @@ class Model
      * Getter for singular attribute values by name.
      *
      * @param   string  $alias   The attribute field alias.
-     * @return  mixed
+     * @return  int|string|array|null|bool|float
      */
     public function getAttribute($alias, $doCast = true)
     {
@@ -504,8 +507,8 @@ class Model
      * class specific field additions.
      *
      * @see \NEM\Models\Transaction
-     * @param   array   $relations      An array of field names which need to be parsed as relationships.
-     * @return  \NEM\Contracts\DataTransferObject
+     * @param   array   $appends  An array of field names
+     * @return  self
      */
     public function setAppends(array $appends)
     {
@@ -556,7 +559,7 @@ class Model
      * @see ArrayObject
      * @param   string      $name    The property/attribute name.
      * @param   mixed       $value   The new property/attribute value.
-     * @return  mixed
+     * @return  void
      */
     public function __set($name, $value)
     {
@@ -566,7 +569,7 @@ class Model
 
         // attributes prevail over class properties in __get()
         $this->setAttribute($name, $value);
-        return $this->attributes[$name];
+        return; #$this->attributes[$name];
     }
 
     /**
