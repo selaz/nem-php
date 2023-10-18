@@ -36,6 +36,10 @@ use NEM\Models\Fee;
 class NamespaceProvision
     extends Transaction
 {
+
+    protected $parent = null;
+    protected $newPart;
+
     /**
      * List of additional fillable attributes
      *
@@ -69,7 +73,7 @@ class NamespaceProvision
      * The extendFee() method must be overloaded by any Transaction Type
      * which needs to extend the base FEE to a custom FEE.
      *
-     * @return array
+     * @return int
      */
     public function extendFee()
     {
@@ -84,6 +88,7 @@ class NamespaceProvision
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $baseTx  = parent::serialize($parameters);

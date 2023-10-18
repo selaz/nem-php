@@ -32,7 +32,6 @@ interface Service
      * Setter for the `endpoint` property.
      *
      * @param   string  $endpoint
-     * @return  \NEM\Infrastructure\Abstract
      */
     public function setBaseUrl($endpoint);
 

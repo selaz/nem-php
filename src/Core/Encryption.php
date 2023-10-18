@@ -18,6 +18,7 @@
  */
 namespace NEM\Core;
 
+use InvalidArgumentException;
 use NEM\Core\KeyPair;
 use NEM\Core\Buffer;
 use NEM\Core\KeccakHasher;
@@ -56,7 +57,7 @@ class Encryption
      * Helper to prepare a `data` attribute into a \NEM\Core\Buffer
      * object for easier internal data representations.
      * 
-     * @param   null|string|\NEM\Core\Buffer    $data   The data that needs to be added to the returned Buffer.
+     * @param   array|null|string|\NEM\Core\Buffer    $data   The data that needs to be added to the returned Buffer.
      * @return  \NEM\Core\Buffer
      */
     protected static function prepareInputBuffer($data)
@@ -89,11 +90,11 @@ class Encryption
      * NEM this is used to derive a Private key off a Password.
      * 
      * @param   string                  $algorithm  Which hash algorithm to use for key derivation.
-     * @param   string|NEM\Core\Buffer  $password   Password for key derivation as *Buffer*.
-     * @param   string|NEM\Core\Buffer  $salt       Salt for key derivation as *Buffer*.
+     * @param   string|Buffer  $password   Password for key derivation as *Buffer*.
+     * @param   string|Buffer  $salt       Salt for key derivation as *Buffer*.
      * @param   integer                 $count      Count of Derivation iterations.
      * @param   integer                 $keyLength  Length of produced Key (count of Bytes).
-     * @return  NEM\Core\Buffer
+     * @return  Buffer
      *
      * @throws  RuntimeException            On invalid hash algorithm (maybe missing php extension)
      * @throws  InvalidArgumentException    On negative *$keyLength* argument.
@@ -132,7 +133,7 @@ class Encryption
      * @param   string                     $algo
      * @param   string|\NEM\Core\Buffer    $data
      * @param   boolean                    $returnRaw 
-     * @return  \NEM\Core\Buffer
+     * @return  \NEM\Core\Buffer|string
      */
     public static function hash($algo, $data, $returnRaw = false)
     {
@@ -166,7 +167,7 @@ class Encryption
      * hash_update() method.
      * 
      * @param   string              $algorithm
-     * @return  resource|\NEM\Core\KeccakSponge
+     * @return  resource|\HashContext
      */
     public static function hash_init($algorithm)
     {
@@ -175,7 +176,7 @@ class Encryption
             $res = hash_init($algorithm);
         }
         else {
-            throw new RuntimeException("Unsupported hash algorithm '" . $algo . "'.");
+            throw new RuntimeException("Unsupported hash algorithm '" . $algorithm . "'.");
         }
 
         //XXX should return Hasher class to keep track of key size
@@ -187,9 +188,9 @@ class Encryption
      * 
      * This method will edit the Resource directly.
      * 
-     * @param   resource|KeccakSponge        $hasher
+     * @param   resource|\HashContext        $hasher
      * @param   string|\NEM\Core\Buffer     $data
-     * @return  resource|\NEM\Core\KeccakSponge
+     * @return  bool
      */
     public static function hash_update($hasher, $data)
     {
@@ -206,9 +207,9 @@ class Encryption
      * This will close the Input Phase of the incremental
      * hashing mechanism.
      * 
-     * @param   resource|KeccakSponge    $hasher
+     * @param   resource|\HashContext    $hasher
      * @param   bool                    $returnRaw
-     * @return  \NEM\Core\Buffer|string
+     * @return  Buffer|string
      */
     public static function hash_final($hasher, $returnRaw = false)
     {
@@ -227,10 +228,10 @@ class Encryption
      *
      * A MAC authenticates a message. It is a signature based on a secret key (salt).
      *
-     * @param   string                  $algorithm  Which hash algorithm to use.
-     * @param   string|NEM\Core\Buffer  $data
-     * @param   string|NEM\Core\Buffer  $salt
-     * @return  NEM\Core\Buffer
+     * @param   string                  $algo  Which hash algorithm to use.
+     * @param   string|Buffer  $data
+     * @param   string|Buffer  $salt
+     * @return  Buffer
      */
     public static function hmac($algo, $data, $salt)
     {

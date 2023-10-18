@@ -61,7 +61,7 @@ class Cheese
      *
      * This will return a NIS compliant [MosaicId](https://bob.nem.ninja/docs/#mosaicId) object. 
      *
-     * @param   array   $mosaidId       Array should contain offsets `namespaceId` and `name`.
+     * @param   array   $mosaicId       Array should contain offsets `namespaceId` and `name`.
      * @return  \NEM\Models\Mosaic
      */
     public function id(array $mosaicId = null)
@@ -74,7 +74,7 @@ class Cheese
      *
      * This will return a NIS compliant [MosaicLevy](https://bob.nem.ninja/docs/#mosaicLevy) object. 
      *
-     * @param   array   $mosaidId       Array should contain offsets `type`, `recipient`, `mosaicId` and `fee`.
+     * @param   array   $levy       Array should contain offsets `type`, `recipient`, `mosaicId` and `fee`.
      * @return  \NEM\Models\MosaicLevy
      */
     public function levy(array $levy = null)

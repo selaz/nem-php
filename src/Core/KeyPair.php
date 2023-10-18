@@ -29,6 +29,7 @@ use NEM\Errors\NISInvalidPublicKeySize;
 use NEM\Errors\NISInvalidPublicKeyContent;
 use NEM\Errors\NISInvalidSignatureContent;
 use \ParagonIE_Sodium_Core_Ed25519;
+use RuntimeException;
 
 /**
  * This is the KeyPair class
@@ -52,21 +53,21 @@ class KeyPair
     /**
      * The *hexadecimal* data of the public key.
      *
-     * @var string
+     * @var Buffer
      */
     protected $publicKey;
 
     /**
      * The *hexadecimal* data of the private key.
      *
-     * @var string
+     * @var ?Buffer
      */
     protected $privateKey;
 
     /**
      * The *reversed hexadecimal* data of the private key.
      *
-     * @var string
+     * @var ?Buffer
      */
     protected $secretKey;
 
@@ -91,7 +92,7 @@ class KeyPair
      */
     static public function create($privateKey = null, $publicKey = null)
     {
-        $kp = new static($privateKey, $publicKey);
+        $kp = new self($privateKey, $publicKey);
         return $kp;
     }
 
@@ -125,7 +126,7 @@ class KeyPair
      *
      * Binary data should and will only be used internally.
      *
-     * @param   string|integer                  Which encoding to use (One of: "hex", "uint8", "int32")
+     * @param   string|integer $enc                 Which encoding to use (One of: "hex", "uint8", "int32")
      * @return  \NEM\Core\Buffer|string|array   Returns either of Buffer, string hexadecimal representation, or UInt8 or Int32 array.
      */
     public function getPublicKey($enc = null)
@@ -139,7 +140,7 @@ class KeyPair
      *
      * Binary data should and will only be used internally.
      *
-     * @param   string|integer                  Which encoding to use (One of: "hex", "uint8", "int32")
+     * @param   string|integer $enc                 Which encoding to use (One of: "hex", "uint8", "int32")
      * @return  \NEM\Core\Buffer|string|array   Returns either of Buffer, string hexadecimal representation, or UInt8 or Int32 array.
      */
     public function getPrivateKey($enc = null)
@@ -278,7 +279,7 @@ class KeyPair
      *
      * @internal
      * @param   null|string|\NEM\Core\Buffer   $publicKey           The public key in hexadecimal format (or in Buffer).
-     * @return  \NEM\Core\KeyPair
+     * @return  \NEM\Core\Buffer
      * @throws  \NEM\Errors\NISInvalidPublicKeySize       On string key size with wrong length. (strictly 64 characters)
      * @throws  \NEM\Errors\NISInvalidPublicKeyContent    On string key invalid content. (non hexadecimal characters)
      */
@@ -302,7 +303,7 @@ class KeyPair
             // copy construction - clone the buffer (binary data of the private key)
             $this->publicKey = clone $publicKey;
         }
-        elseif ($publicKey !== null) {
+        else {
             // `publicKey` could not be interpreted.
             throw new RuntimeException("Invalid Private key for KeyPair creation. Please use hexadecimal notation (64|66 characters string) or the \\NEM\\Core\\Buffer class.");
         }

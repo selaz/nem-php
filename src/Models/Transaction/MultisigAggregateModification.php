@@ -41,6 +41,7 @@ use NEM\Core\Serializer;
 class MultisigAggregateModification
     extends Transaction
 {
+    protected $relativeChange = null;
 
     /**
      * List of automatic *value casts*.
@@ -94,6 +95,7 @@ class MultisigAggregateModification
      *                                     network prefix change).
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $baseTx  = parent::serialize($parameters);
@@ -201,7 +203,7 @@ class MultisigAggregateModification
      * The extendFee() method must be overloaded by any Transaction Type
      * which needs to extend the base FEE to a custom FEE.
      *
-     * @return array
+     * @return int
      */
     public function extendFee()
     {
@@ -222,7 +224,7 @@ class MultisigAggregateModification
     /**
      * Mutator for the modifications collection.
      *
-     * @return \NEM\Models\ModelCollection
+     * @return Model
      */
     public function minCosignatories($minCosignatories = null)
     {

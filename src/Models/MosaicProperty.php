@@ -41,6 +41,11 @@ class MosaicProperty
         "value"
     ];
 
+    public $value = null;
+
+    protected $name = null;
+
+
     /**
      * Address DTO automatically cleans address representation.
      *
@@ -70,6 +75,7 @@ class MosaicProperty
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $nisData = $this->toDTO();

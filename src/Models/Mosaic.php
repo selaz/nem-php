@@ -19,6 +19,8 @@
  */
 namespace NEM\Models;
 
+use RuntimeException;
+
 /**
  * This is the Mosaic class
  *
@@ -40,6 +42,10 @@ class Mosaic
         "namespaceId",
         "name"
     ];
+
+    protected $namespaceId = null;
+
+    protected $name = null;
 
     /**
      * Class method to create a new `Mosaic` object from `namespace`
@@ -65,7 +71,7 @@ class Mosaic
             throw new RuntimeException("Missing namespace or mosaic name for \\NEM\\Models\\Mosaic instance.");
         }
 
-        return new static([
+        return new self([
             "namespaceId" => $namespace,
             "name" => $mosaic
         ]);
@@ -93,6 +99,7 @@ class Mosaic
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $nisData = $this->toDTO();

@@ -63,6 +63,10 @@ class Message
         "type",
     ];
 
+    protected $type = null;
+    protected $payload = null;
+    protected $plain = null;
+
     /**
      * Account DTO represents NIS API's [AccountMetaDataPair](https://bob.nem.ninja/docs/#accountMetaDataPair).
      *
@@ -162,7 +166,7 @@ class Message
      * Setter for the plaintext content of a NEM Message.
      * 
      * @param   string  $plain
-     * @return  \NEM\Models\Message
+     * @return  static
      */
     public function setPlain($plain)
     {
@@ -173,8 +177,7 @@ class Message
     /**
      * Getter for the plaintext content of a NEM Message.
      * 
-     * @param   string  $plain
-     * @return  \NEM\Models\Message
+     * @return  ?string
      */
     public function getPlain()
     {

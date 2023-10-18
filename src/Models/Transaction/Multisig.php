@@ -65,6 +65,7 @@ class Multisig
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $baseTx  = parent::serialize($parameters);
@@ -134,7 +135,7 @@ class Multisig
      * The extendFee() method must be overloaded by any Transaction Type
      * which needs to extend the base FEE to a custom FEE.
      *
-     * @return array
+     * @return int
      */
     public function extendFee()
     {
@@ -167,7 +168,7 @@ class Multisig
      * the multisig transaction package.
      *
      * @param   \NEM\Models\Transaction     $otherTrans     Transaction to include in the multisig DTO's `otherTrans` attribute.
-     * @return  \NEM\Models\Transaction\Multisig
+     * @return  \NEM\Models\Transaction
      */
     public function setOtherTrans(Transaction $otherTrans)
     {

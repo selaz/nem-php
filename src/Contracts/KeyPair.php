@@ -34,7 +34,7 @@ interface KeyPair
      * of a Public Key.
      *
      * @internal
-     * @param   string|integer                  Which encoding to use (One of: "hex", "uint8", "int32")
+     * @param string|int $enc                 Which encoding to use (One of: "hex", "uint8", "int32")
      * @return  \NEM\Core\Buffer|string|array
      */
     public function getPublicKey($enc = null);
@@ -44,7 +44,7 @@ interface KeyPair
      * of a Private Key.
      *
      * @internal
-     * @param   string|integer                  Which encoding to use (One of: "hex", "uint8", "int32")
+     * @param   string|int $enc                 Which encoding to use (One of: "hex", "uint8", "int32")
      * @return  \NEM\Core\Buffer|string|array
      */
     public function getPrivateKey($enc = null);
@@ -55,7 +55,7 @@ interface KeyPair
      * representation of the Private Key*.^
      *
      * @internal
-     * @param   string|integer                  Which encoding to use (One of: "hex", "uint8", "int32")
+     * @param   string|int $enc                 Which encoding to use (One of: "hex", "uint8", "int32")
      * @return  \NEM\Core\Buffer|string|array
      */
     public function getSecretKey($enc = null);

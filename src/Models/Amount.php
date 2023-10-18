@@ -125,7 +125,7 @@ class Amount
     /**
      * Amount DTO automatically returns MICRO amount.
      *
-     * @return  array       Associative array with key `address` containing a NIS *compliable* address representation.
+     * @return  array|int       Associative array with key `address` containing a NIS *compliable* address representation.
      */
     public function toDTO($filterByKey = null)
     {
@@ -142,7 +142,7 @@ class Amount
      * of an Amount on the NEM Blockchain. Maximum Divisibility is up to 6
      * decimal places.
      *
-     * @return integer
+     * @return int
      */
     public function toMicro()
     {
@@ -228,9 +228,7 @@ class Amount
      * amounts of a given mosaic quantity for *fees calculation*.
      *
      * @internal
-     * @param   \NEM\Models\MosaicDefinition  $definition
-     * @param   integer                       $quantity
-     * @return  integer
+     * @return  int
      */
     static public function mosaicQuantityToXEM($divisibility, $supply, $quantity, $multiplier = Amount::XEM)
     {

@@ -66,6 +66,10 @@ class MosaicLevy
         "fee"  => "int",
     ];
 
+    protected $type = null;
+
+    protected $fee = null;
+
     /**
      * Mosaic Levy DTO builds a package with offsets `type`,
      * `recipient`, `mosaicId` and `fee`. 
@@ -95,6 +99,7 @@ class MosaicLevy
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         // shortcuts
@@ -122,7 +127,7 @@ class MosaicLevy
      *
      * This will return a NIS compliant [MosaicId](https://bob.nem.ninja/docs/#mosaicId) object. 
      *
-     * @param   array   $mosaidId       Array should contain offsets `namespaceId` and `name`.
+     * @param   array   $mosaicId       Array should contain offsets `namespaceId` and `name`.
      * @return  \NEM\Models\Mosaic
      */
     public function mosaicId(array $mosaicId = null)

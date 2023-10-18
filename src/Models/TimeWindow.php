@@ -91,7 +91,7 @@ class TimeWindow
         if ($this->getAttribute("timeStamp")) {
             // from NIS timestamp
             $ts = $this->getAttribute("timeStamp");
-            if (! empty($ts))
+            if (!empty($ts))
                 return $ts;
 
             return $this->diff("now", static::$nemesis);

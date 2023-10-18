@@ -44,7 +44,7 @@ class CollectionMutator
      *
      * @internal
      * @param  string   $name           The model name you would like to store in the collection.
-     * @param  array    $items          The collection's items data.
+     * @param  array|ModelCollection    $items          The collection's items data.
      * @return \Illuminate\Support\Collection
      */
     public function mutate($name, $items)
