@@ -69,6 +69,9 @@ class MultisigModification
         "cosignatoryAccount",
     ];
 
+    public $cosignatoryAccount = null;
+    public $modificationType = null;
+
     /**
      * MultisigModification DTO automatically builds a *NIS compliant*
      * [MultisigCosignatoryModification](https://bob.nem.ninja/docs/#multisigCosignatoryModification)
@@ -94,6 +97,7 @@ class MultisigModification
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $nisData = $this->toDTO();

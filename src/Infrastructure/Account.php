@@ -250,14 +250,14 @@ class Account
 
         //XXX include Error checks
         $data = json_decode($response, true);
-        return $this->createTransactionCollection($object['data']); //XXX brr => error/content validation first
+        return $this->createTransactionCollection($data['data']); //XXX brr => error/content validation first
     }
 
     /**
      * Gets an array of harvest info objects for an account.
      *
      * @param   string  $address    The address of the account.
-     * @param   string  %hash       The 256 bit sha3 hash of the block up to which harvested blocks are returned.
+     * @param   string  $hash       The 256 bit sha3 hash of the block up to which harvested blocks are returned.
      * @return  object              Instance with keys from [HarvestInfo](https://bob.nem.ninja/docs/#harvestInfo) objects.
      */
     public function getHarvestInfo($address, $hash = null) 
@@ -272,7 +272,7 @@ class Account
 
         //XXX include Error checks
         $data = json_decode($response, true);
-        return $this->createBaseModel($object); //XXX brr => error/content validation first
+        return $this->createBaseModel($data); //XXX brr => error/content validation first
     }
 
     /**
@@ -306,8 +306,8 @@ class Account
     {
         $params = ["address" => $address];
 
-        if ($hash !== null)
-            $params["hash"] = $hash;
+        if ($parent !== null)
+            $params["parent"] = $parent;
 
         if ($id !== null)
             $params["id"] = $id;
@@ -423,8 +423,7 @@ class Account
     /**
      * Unlocks an account (starts harvesting).
      *
-     * @param host       - string
-     * @param privateKey - string
+     * @param string $privateKey
      *
      * @return Array<boolean>
      */
@@ -443,8 +442,7 @@ class Account
     /**
      * Locks an account (stops harvesting).
      *
-     * @param host       - string
-     * @param privateKey - string
+     * @param string $privateKey
      *
      * @return Array<boolean>
      */

@@ -31,16 +31,13 @@ interface Connector
 {
     /**
      * Setter for `use_ssl` property.
-     *
-     * @param  string $host
-     * @return \NEM\API
      */
     public function setUseSsl($use_ssl);
 
     /**
      * Getter for the `use_ssl` property.
      *
-     * @return string
+     * @return bool
      */
     public function getUseSsl();
 
@@ -50,7 +47,6 @@ interface Connector
      * which Protocol is used in the Base URL.
      *
      * @param  string $protocol
-     * @return \NEM\Contracts\Connector
      */
     public function setProtocol($protocol);
 
@@ -66,7 +62,6 @@ interface Connector
      * Setter for `host` property.
      *
      * @param  string $host
-     * @return \NEM\Contracts\Connector
      */
     public function setHost($host);
 
@@ -80,15 +75,14 @@ interface Connector
     /**
      * Setter for `port` property.
      *
-     * @param  integer $port
-     * @return \NEM\Contracts\Connector
+     * @param  int $port
      */
     public function setPort($port);
 
     /**
      * Getter for the `port` property.
      *
-     * @return string
+     * @return int
      */
     public function getPort();
 
@@ -96,7 +90,6 @@ interface Connector
      * Setter for `endpoint` property.
      *
      * @param  string $endpoint
-     * @return \NEM\Contracts\Connector
      */
     public function setEndpoint($endpoint);
 
@@ -117,28 +110,28 @@ interface Connector
     /**
      * Getter for `username` property.
      *
-     * @return string
+     * @return static
      */
     public function setUsername($username);
 
     /**
      * Getter for `username` property.
      *
-     * @return string
+     * @return ?string
      */
     public function getUsername();
 
     /**
      * Setter for `password` property.
      *
-     * @return string
+     * @return static
      */
     public function setPassword($password);
 
     /**
      * Getter for `password` property.
      *
-     * @return string
+     * @return ?string
      */
     public function getPassword();
 

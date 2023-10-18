@@ -33,6 +33,14 @@ use NEM\Models\Mutators\CollectionMutator;
 class Account
     extends Model
 {
+
+    protected $importance = null;
+    public $publicKey = null;
+    protected $label = null;
+    protected $harvestedBlocks = null;
+    protected $status = null;
+    protected $remoteStatus = null;
+
     /**
      * List of fillable attributes
      *
@@ -143,7 +151,6 @@ class Account
     /**
      * Mutator for the cosignatoryOf object collection.
      *
-     * @return \NEM\Models\ModelCollection
      */
     public function cosignatoryOf(array $data = null)
     {
@@ -154,7 +161,6 @@ class Account
     /**
      * Mutator for the cosignatories object collection.
      *
-     * @return \NEM\Models\ModelCollection
      */
     public function cosignatories(array $data = null)
     {

@@ -34,7 +34,7 @@ interface DataTransferObject
     /**
      * Setter for the `attributes` property.
      *
-     * @return  \NEM\Models\ModelInterface
+     * @return  \NEM\Models\Model
      */
     public function setAttributes(array $attributes);
 

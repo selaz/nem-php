@@ -39,11 +39,8 @@ interface RequestHandler
      * client.
      *
      * @see  \NEM\Contracts\RequestHandler
-     * @param  string $uri
-     * @param  string $bodyJSON
      * @param  array  $options
      * @param  boolean  $usePromises
-     * @return [type]          [description]
      */
     public function status(array $options = [], $usePromises = false);
 
@@ -55,7 +52,6 @@ interface RequestHandler
      * @param  string $bodyJSON
      * @param  array  $options
      * @param  boolean  $usePromises
-     * @return [type]          [description]
      */
     public function get($uri, $bodyJSON, array $options = [], $usePromises = false);
 
@@ -67,7 +63,6 @@ interface RequestHandler
      * @param  string $bodyJSON
      * @param  array  $options
      * @param  boolean  $usePromises
-     * @return [type]          [description]
      */
     public function post($uri, $bodyJSON, array $options = [], $usePromises = false);
 }

@@ -39,12 +39,12 @@ class SDK
      *
      * @var \NEM\API
      */
-    protected $api;
+    public $api;
 
     /**
      * The model mutator.
      *
-     * @var \NEM\Models\ModelMutator
+     * @var \NEM\Models\Mutators\ModelMutator
      */
     protected $models;
 
@@ -79,8 +79,7 @@ class SDK
     /**
      * Getter for the currently used NIS API Wrapper.
      *
-     * @param   \NEM\API    $api    An initialized NIS API instance.
-     * @return  \NEM\SDK
+     * @return  \NEM\API
      */
     public function getAPIClient()
     {
@@ -155,10 +154,9 @@ class SDK
      * $sdk = new SDK();
      * $sdk->collect("transaction", $transactions) // will automatically craft a ModelCollection with \NEM\Models\Transaction objects
      *
-     * @see \NEM\Models\Mutator
+     * @see \NEM\Models\Mutators\ModelMutator
      * @param   string              $modelName      The model name to instantiate.
      * @param   array               $elements       Elements to collect (DTO format).
-     * @return  \NEM\Models\Mutator                 The models mutator
      */
     public function collect($modelName, array $elements)
     {

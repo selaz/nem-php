@@ -22,6 +22,8 @@ use Illuminate\Support\Str;
 
 use NEM\API;
 use NEM\Contracts\Service as ServiceContract;
+use NEM\Contracts\DataTransferObject;
+use BadMethodCallException;
 
 /**
  * This is the Service class
@@ -32,6 +34,13 @@ use NEM\Contracts\Service as ServiceContract;
  * 
  * The \NEM\API class is used internally to provide with
  * connectivity to the NEM network and its nodes.
+ * @method mixed createBaseModel(mixed $attributes)
+ * @method mixed createTransactionModel(mixed $attributes)
+ * @method mixed createAccountModel(mixed $attributes)
+ * @method mixed createBaseCollection(mixed $attributes)
+ * @method mixed createTransactionCollection(mixed $attributes)
+ * @method mixed createNamespaceCollection(mixed $attributes)
+ * @method mixed createMosaicCollection(mixed $attributes)
  */
 class Service
     implements ServiceContract
@@ -64,7 +73,6 @@ class Service
      * Setter for the `baseUrl` property.
      *
      * @param   string  $baseUrl
-     * @return  \NEM\Infrastructure\Abstract
      */
     public function setBaseUrl($baseUrl)
     {
@@ -112,7 +120,7 @@ class Service
      *
      * @param  string   $name           The model name you would like to create.
      * @param  array    $arguments     The model's attribute values.
-     * @return \NEM\Contract\DataTransferObject
+     * @return DataTransferObject
      */
     public function __call($name, array $arguments)
     {

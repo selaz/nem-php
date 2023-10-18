@@ -47,8 +47,7 @@ final class Registry
      * Infrastructure service for Mosaics.
      *
      * @param   \NEM\Models\Mosaic|\NEM\Models\MosaicAttachment|string     $mosaic     The mosaic object or name for which to get the definition.
-     * @param   string|integer                                             $network    Default is mainnet (104), testnet is -104 (0x98) and mijin is 96 (0x60)
-     * @return  \NEM\Models\MosaicDefinition
+     * @return  \NEM\Models\MosaicDefinition|false
      * @throws  \InvalidArgumentException       On invalid `mosaic` parameter.
      */
     static public function getDefinition($mosaic)
@@ -89,7 +88,7 @@ final class Registry
      * amount of data that needs to be fetched over the network.
      * 
      * @param   string      $fqn
-     * @return  string
+     * @return  string|false
      * @throws  \InvalidArgumentException       On invalid mosaic fully qualified name.
      */
     static public function morphClass($fqn)

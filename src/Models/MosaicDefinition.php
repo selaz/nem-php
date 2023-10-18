@@ -84,6 +84,7 @@ class MosaicDefinition
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $nisData = $this->toDTO(true); // true=hexadecimal description
@@ -114,7 +115,7 @@ class MosaicDefinition
      *
      * This will return a NIS compliant [MosaicId](https://bob.nem.ninja/docs/#mosaicId) object. 
      *
-     * @param   array   $mosaidId       Array should contain offsets `namespaceId` and `name`.
+     * @param   array   $mosaicId       Array should contain offsets `namespaceId` and `name`.
      * @return  \NEM\Models\Mosaic
      */
     public function id(array $mosaicId = null)
@@ -137,7 +138,7 @@ class MosaicDefinition
      *
      * This will return a NIS compliant [MosaicLevy](https://bob.nem.ninja/docs/#mosaicLevy) object. 
      *
-     * @param   array   $mosaidId       Array should contain offsets `type`, `recipient`, `mosaicId` and `fee`.
+     * @param   array   $levy       Array should contain offsets `type`, `recipient`, `mosaicId` and `fee`.
      * @return  \NEM\Models\MosaicLevy
      */
     public function levy(array $levy = null)
@@ -161,8 +162,7 @@ class MosaicDefinition
     /**
      * Mutator for `description` relation.
      *
-     * @param   array   $mosaidId       Array should contain offsets `namespaceId` and `name`.
-     * @return  \NEM\Models\Mosaic
+     * @return  \NEM\Models\Message
      */
     public function description($description = null)
     {

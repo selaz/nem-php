@@ -19,6 +19,7 @@
  */
 namespace NEM\Models;
 
+use InvalidArgumentException;
 use \NEM\Models\Mosaic;
 use \NEM\Models\MosaicDefinition;
 use \NEM\Mosaics\Registry;
@@ -50,7 +51,7 @@ class MosaicDefinitions
     static public function create(MosaicAttachments $mosaics = null, $networkId = 104)
     {
         if (! self::$definitions) {
-            self::$definitions = new static([
+            self::$definitions = new self([
                 Registry::getDefinition("nem:xem")
             ]);
         }
@@ -59,7 +60,7 @@ class MosaicDefinitions
             return self::$definitions; // only contains nem:xem
         }
 
-        $object = new static;
+        $object = new self;
 
         // for each attached mosaic, we need the mosaic definition
         foreach ($mosaics as $attachment) {
@@ -100,7 +101,7 @@ class MosaicDefinitions
     static public function fetch(Mosaic $mosaic, $networkId = 104) 
     {
         if (! self::$definitions) {
-            self::$definitions = new static([
+            self::$definitions = new self([
                 Registry::getDefinition("nem:xem")
             ]);
         }
@@ -171,7 +172,7 @@ class MosaicDefinitions
      * Internal helper to wrap a mosaic FQN into a
      * \NEM\Models\Mosaic instance.
      * 
-     * @param   string|\NEM\Models\Mosaic   $mosaic
+     * @param   mixed   $mosaic
      * @return  \NEM\Models\Mosaic
      */
     protected function prepareMosaic($mosaic)
@@ -187,6 +188,6 @@ class MosaicDefinitions
             return Mosaic::create($fqmn);
         }
 
-        throw new InvalidArgumentException("Unsupported mosaic argument type provided to \\NEM\\Models\\MosaicDefinitions: ", var_export($mosaic));
+        throw new InvalidArgumentException("Unsupported mosaic argument type provided to \\NEM\\Models\\MosaicDefinitions: ". var_export($mosaic));
     }
 }

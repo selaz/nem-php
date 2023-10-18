@@ -83,8 +83,7 @@ trait Connectable
     /**
      * Setter for `use_ssl` property.
      *
-     * @param  string $host
-     * @return \NEM\API
+     * @param  bool $use_ssl
      */
     public function setUseSsl($use_ssl)
     {
@@ -95,7 +94,7 @@ trait Connectable
     /**
      * Getter for the `use_ssl` property.
      *
-     * @return string
+     * @return bool
      */
     public function getUseSsl()
     {
@@ -108,7 +107,6 @@ trait Connectable
      * which Protocol is used in the Base URL.
      *
      * @param  string $protocol
-     * @return \NEM\Contracts\HttpHandler
      */
     public function setProtocol($protocol)
     {
@@ -145,7 +143,6 @@ trait Connectable
      * Setter for `host` property.
      *
      * @param  string $host
-     * @return \NEM\API
      */
     public function setHost($host)
     {
@@ -167,7 +164,6 @@ trait Connectable
      * Setter for `port` property.
      *
      * @param  integer $port
-     * @return \NEM\API
      */
     public function setPort($port)
     {
@@ -178,7 +174,7 @@ trait Connectable
     /**
      * Getter for the `port` property.
      *
-     * @return string
+     * @return int
      */
     public function getPort()
     {
@@ -189,7 +185,6 @@ trait Connectable
      * Setter for `endpoint` property.
      *
      * @param  string $endpoint
-     * @return \NEM\API
      */
     public function setEndpoint($endpoint)
     {
@@ -221,7 +216,7 @@ trait Connectable
     /**
      * Getter for `username` property.
      *
-     * @return string
+     * @return static
      */
     public function setUsername($username)
     {
@@ -232,7 +227,7 @@ trait Connectable
     /**
      * Getter for `username` property.
      *
-     * @return string
+     * @return ?string
      */
     public function getUsername()
     {
@@ -245,7 +240,7 @@ trait Connectable
     /**
      * Setter for `password` property.
      *
-     * @return string
+     * @return static
      */
     public function setPassword($password)
     {
@@ -256,7 +251,7 @@ trait Connectable
     /**
      * Getter for `password` property.
      *
-     * @return string
+     * @return ?string
      */
     public function getPassword()
     {
@@ -271,7 +266,6 @@ trait Connectable
      * string to perform Basic Authentication using the
      * URL.
      *
-     * @return [type] [description]
      */
     public function getBasicAuth()
     {
@@ -311,7 +305,7 @@ trait Connectable
      * a fully qualified base url.
      * 
      * @param   string  $baseUrl
-     * @return  \NEM\Traits\Connectable
+     * @return  static
      */
     public function fillFromBaseUrl($baseUrl)
     {

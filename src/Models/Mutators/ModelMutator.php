@@ -41,7 +41,7 @@ class ModelMutator
      * @internal
      * @param  string   $name           The model name you would like to create.
      * @param  array    $attributes     The model's attribute values.
-     * @return \NEM\Models\ModelInterface
+     * @return \NEM\Models\Model
      */
     public function mutate($name, $attributes)
     {
@@ -76,8 +76,8 @@ class ModelMutator
      *
      * @internal
      * @param  string   $name           The model name you would like to create.
-     * @param  array    $attributes     The model's attribute values.
-     * @return \NEM\Models\ModelInterface
+     * @param  array    $arguments     The model's attribute values.
+     * @return \NEM\Models\Model
      */
     public function __call($name, array $arguments)
     {

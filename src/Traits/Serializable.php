@@ -32,7 +32,7 @@ trait Serializable
     /**
      * Instance of the NEM serializer
      *
-     * @var \NEM\Core\Serializer
+     * @var ?Serializer
      */
     private $serializer;
 
@@ -43,7 +43,7 @@ trait Serializable
      */
     public function getSerializer()
     {
-        if (! $this->serializer || ! ($this->serializer instanceof Serializer)) {
+        if (empty($this->serializer) || !($this->serializer instanceof Serializer)) {
             $this->serializer = Serializer::getInstance();
         }
 
@@ -53,8 +53,8 @@ trait Serializable
     /**
      * Getter for the `serializer` property.
      * 
-     * @param  \NEM\Core\Serializer
-     * @return \NEM\Traits\Serializable
+     * @param  Serializer $serializer
+     * @return static
      */
     public function setSerializer(Serializer $serializer)
     {

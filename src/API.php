@@ -21,6 +21,8 @@ namespace NEM;
 
 use RuntimeException;
 use InvalidArgumentException;
+use BadMethodCallException;
+use \NEM\Contracts\RequestHandler;
 
 /**
  * This is the NEMBlockchain\API class
@@ -31,6 +33,9 @@ use InvalidArgumentException;
  * @see  \NEM\Contracts\Connector
  * @see  \NEM\Traits\Connectable
  * @author Grégory Saive <greg@evias.be>
+ * @method mixed getJSON($uri, $bodyJSON = null, array $options = [], $usePromises = false)
+ * @method mixed postJSON($uri, $bodyJSON, array $options = [], $usePromises = false)
+ * @method mixed post($uri, $bodyJSON, array $options = [], $usePromises = false)
  */
 class API
 {
@@ -54,17 +59,14 @@ class API
     /**
      * The request handler use to send API calls over
      * HTTP/JSON to NIS or NCC endpoints.
-     *
-     * @var \NEM\Contracts\RequestHandler
      */
-    protected $requestHandler;
+    protected ?RequestHandler $requestHandler = null;
 
     /**
      * Constructor for a new NEMBlockchain\API instance.
      *
      * This will initialize the Laravel/Lumen IoC.
      *
-     * @param Container $app [description]
      */
     public function __construct(array $options = [])
     {
@@ -143,29 +145,6 @@ class API
     }
 
     /**
-     * Set the linked laravel/lumen Application
-     * class instance.
-     *
-     * @param Application $app
-     */
-    public function setApplication(Application $app)
-    {
-        $this->app = $app;
-        return $this;
-    }
-
-    /**
-     * Return the linked laravel/lumen Application
-     * class instance.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function getApplication()
-    {
-        return $this->app;
-    }
-
-    /**
      * Setter for `handlerClass` property.
      *
      * This property is used for instantiating the
@@ -193,8 +172,6 @@ class API
     /**
      * Set the RequestHandler to use as this API
      * instance's request handler.
-     *
-     * @param RequestHandler $handler [description]
      */
     public function setRequestHandler(RequestHandler $handler)
     {
@@ -205,8 +182,6 @@ class API
     /**
      * The getRequestHandler method creates an instance of the
      * `handlerClass` and returns it.
-     *
-     * @return \NEM\Contracts\RequestHandler
      */
     public function getRequestHandler()
     {

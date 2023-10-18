@@ -55,6 +55,8 @@ class MosaicSupplyChange
         "delta"         => "transaction.delta",
     ];
 
+    protected $delta = null;
+
     /**
      * The Signature transaction type does not need to add an offset to
      * the transaction base DTO.
@@ -87,7 +89,7 @@ class MosaicSupplyChange
      * The extendFee() method must be overloaded by any Transaction Type
      * which needs to extend the base FEE to a custom FEE.
      *
-     * @return array
+     * @return int
      */
     public function extendFee()
     {
@@ -102,6 +104,7 @@ class MosaicSupplyChange
      * @param   null|string $parameters    non-null will return only the named sub-dtos.
      * @return  array   Returns a byte-array with values in UInt8 representation.
      */
+    #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
         $baseTx  = parent::serialize($parameters);
@@ -147,7 +150,7 @@ class MosaicSupplyChange
      *
      * This will return a NIS compliant [MosaicId](https://bob.nem.ninja/docs/#mosaicId) object. 
      *
-     * @param   array   $mosaidId       Array should contain offsets `namespaceId` and `name`.
+     * @param   array   $mosaicId       Array should contain offsets `namespaceId` and `name`.
      * @return  \NEM\Models\Mosaic
      */
     public function mosaicId(array $mosaicId = null)
