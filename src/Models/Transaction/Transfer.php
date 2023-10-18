@@ -89,7 +89,7 @@ class Transfer
     #[\ReturnTypeWillChange] // @phpstan-ignore-line
     public function serialize($parameters = null)
     {
-        $baseTx  = str_split(parent::serialize($parameters));
+        $baseTx  = parent::serialize($parameters);
         $nisData = $this->toDTO("transaction");
 
         // shortcuts
